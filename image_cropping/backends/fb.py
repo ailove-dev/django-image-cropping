@@ -35,7 +35,7 @@ class FileBrowserBackend(ImageBackend):
     def get_thumbnail_url(self, image_path, thumbnail_options):
         image = self.get_imageobject(image_path)
         version_suffix = thumbnail_options.pop('version_suffix', self.version_suffix)
-        return image.version_generate(version_suffix, thumbnail_options).url
+        return image.version_generate(version_suffix).url
 
     def get_size(self, image):
         image = self.get_imageobject(image)
@@ -47,5 +47,5 @@ class FileBrowserBackend(ImageBackend):
         if isinstance(image, ImageFieldFile):
             image = image.path
             if image.startswith(site.storage.base_location):
-                image = image[len(site.storage.base_location)+1:]
+                image = image[len(site.storage.base_location):]
         return FileObject(image)
